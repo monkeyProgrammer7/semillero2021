@@ -11,9 +11,9 @@ import com.hbt.semillero.enums.TematicaEnum;
  * <b>Descripción:<b> Clase que determina el dto a usar para modificar,
  * consultar y posteriormente eliminar un comic
  * 
- * @author ccastano
+ * @author Geovani Andres Ladino O
  */
-public class ComicDTO implements Serializable {
+public class ComicDTO extends ResultadoDTO implements Serializable  {
 
 	/**
 	 * Atributo que determina

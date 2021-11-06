@@ -88,10 +88,18 @@ public class Comic implements Serializable {
 
 	/**
 	 * Constructor de la clase.
+         * @param nombre
 	 */
 	public Comic(String nombre, EstadoEnum estadoEnum) {
                 this.nombre=nombre;
                 this.estadoEnum=estadoEnum;
+
+	}
+        /**
+	 * Constructor de la clase.
+	 */
+	public Comic() {
+                //constructor vacio
 
 	}
 
@@ -339,6 +347,7 @@ public class Comic implements Serializable {
 				+ autores + ", color=" + color + ", fechaVenta=" + fechaVenta + ", estado=" + estadoEnum + ", cantidad="
 				+ cantidad + "]";
 	}
+        
 
 	/**
 	 * @see java.lang.Object#hashCode() Este método viene a complementar al método

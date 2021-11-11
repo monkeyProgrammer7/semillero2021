@@ -6,20 +6,25 @@ import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { APP_BASE_HREF } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
-
+import { BienvenidaComponent } from './semillero/componentes/home/bienvenida-component';
 import { AppComponent } from './app.component';
 import { MenuComponent } from './semillero/componentes/menu/menu-component';
-import { GestionarComicComponent } from './semillero/componentes/gestionarComic/gestionar-comic';
+import { GestionarComicComponent } from './semillero/componentes/gestionarComic/gestionar-comic.componente';
 
-// DTOs
-export { ComicDTO } from './semillero/dto/comic.dto';
-export { ResultadoDTO } from './semillero/dto/resultado.dto';
+
+import { GestionarCompraComponent } from './semillero/componentes/gestionarCompra/gestionar-compra.component';
+
+//DTOs
+export { ComicDTO } from './semillero/dto/comic-dto';
+export { ResultadoDTO } from './semillero/dto/resultado-dto';
 
 @NgModule({
   declarations: [
     AppComponent,
     MenuComponent,
     BienvenidaComponent,
+    GestionarCompraComponent,
+    GestionarComicComponent
   ],
   imports: [
     BrowserModule,

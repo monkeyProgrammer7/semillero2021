@@ -8,7 +8,9 @@ import com.hbt.semillero.dto.ComicDTO;
 import com.hbt.semillero.dto.ConsultaEditorialComicDTO;
 import com.hbt.semillero.dto.ConsultaNombrePrecioComicDTO;
 import com.hbt.semillero.dto.ConsultarComicTamanoNombreDTO;
+
 import com.hbt.semillero.dto.ResultadoDTO;
+
 
 @Local
 public interface IGestionarComicLocal {
@@ -17,7 +19,7 @@ public interface IGestionarComicLocal {
 
 	public ComicDTO crearComic(ComicDTO comicDTO) throws Exception;
 	
-	public ResultadoDTO actualizarComic(Long idComic);
+	public ComicDTO consultarComic(Long idComic);
 	
 	public ResultadoDTO eliminarComic(Long idComic);
 	
@@ -26,4 +28,6 @@ public interface IGestionarComicLocal {
         public ConsultaEditorialComicDTO consultarEditorialComic(Long idComic);
         
         public ConsultarComicTamanoNombreDTO consultarComicTamanoNombreDTO(Short lengthComic);
+        
+      public ComicDTO editarComic(ComicDTO comicDTO);
 }

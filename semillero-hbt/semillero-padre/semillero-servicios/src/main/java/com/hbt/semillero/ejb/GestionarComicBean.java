@@ -10,13 +10,13 @@ import javax.ejb.TransactionManagementType;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-
 import com.hbt.semillero.dto.ComicDTO;
 import com.hbt.semillero.dto.ConsultaEditorialComicDTO;
 import com.hbt.semillero.dto.ConsultaNombrePrecioComicDTO;
 import com.hbt.semillero.dto.ConsultarComicTamanoNombreDTO;
 import com.hbt.semillero.dto.ResultadoDTO;
 import com.hbt.semillero.entidad.Comic;
+
 
 @Stateless
 @TransactionManagement(TransactionManagementType.CONTAINER)
@@ -58,6 +58,7 @@ public class GestionarComicBean implements IGestionarComicLocal {
 		em.persist(comic);
 		comicDTOResult = this.convertirComicToComicDTO(comic);
 		comicDTOResult.setExitoso(true);
+                
 		comicDTOResult.setMensajeEjecucion("El comic ha sido creado exitosamente");
 		return comicDTOResult;
 	}
@@ -94,6 +95,9 @@ public class GestionarComicBean implements IGestionarComicLocal {
         }
        return consultarComicTamanoNombreDTO;
     }
+    /**
+     * 
+     */
 
      /**
       * 
@@ -118,24 +122,105 @@ public class GestionarComicBean implements IGestionarComicLocal {
         }
        return consultaEditorialComicDTO;
     }
+    /**
+     * Servicio para eliminar un comic ingresando su id
+     * @param idComic id del comic que vamos a eliminar
+     * @return un resultado DTO que contiene los mensajes de exitoso
+     */
+    @Override
+    @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
+    public ResultadoDTO eliminarComic(Long idComic) {
 
-	@Override
-	public ResultadoDTO actualizarComic(Long idComic) {
-		// TODO Auto-generated method stub
-		return null;
+        if(idComic==null){
+        }
+       
+        
+        ResultadoDTO eliminarComicDTO = new ResultadoDTO();
+        Comic comicEliminar ;
+        
+        try{
+           
+            comicEliminar =this.consultarComicPorId(idComic);
+            em.remove(comicEliminar);
+            eliminarComicDTO.setExitoso(true);
+           eliminarComicDTO.setMensajeEjecucion("Se realizo correctamente la eliminación del comic "+ comicEliminar.getNombre());
+        }catch(Exception e){
+            eliminarComicDTO.setExitoso(false);
+            eliminarComicDTO.setMensajeEjecucion("no se ejecuto correctamente la consulta, error tecnico");
+        }
+        return eliminarComicDTO;
+    }
+    
+    private Comic consultarComicPorId(Long idComic) {
+		String consultaUnComic = " SELECT c FROM Comic c WHERE c.id = :idComic ";
+		Query queryComic = em.createQuery(consultaUnComic);
+		queryComic.setParameter("idComic", idComic);
+		Comic comic = (Comic) queryComic.getSingleResult();
+		return comic;
 	}
+        
+    @Override
+    @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
+    public ComicDTO editarComic(ComicDTO comicDTO) {
+       
+        ComicDTO comicResult = new ComicDTO();
+      Long idComic= comicDTO.getId();
+        try{
+              
+        Comic comicReemplazar = this.consultarComicPorId(idComic);
+        comicReemplazar.setAutores("su mama");
+        //Comic comicReemplazo = this.convertirComicDTOToComic(comicDTO);
+        em.merge(comicReemplazar);
+        //comicResult = this.convertirComicToComicDTO(comicReemplazo);
+        comicResult.setExitoso(true);
+        comicResult.setMensajeEjecucion("se reemplazo correctamente el comic ");
+        
+        }catch(Exception e){
+            comicResult.setExitoso(true);
+        comicResult.setMensajeEjecucion("se reemplazo correctamente el comic ");
+        }
+        return comicResult;
+    }
 
-	@Override
-	public ResultadoDTO eliminarComic(Long idComic) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
+	
+
+	
+        /**
+         * 
+         * @return 
+         */
 	@Override
+	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
 	public List<ComicDTO> consultarComics() {
-		// TODO Auto-generated method stub
-		return null;
+		String consulta = "SELECT cm FROM Comic cm";
+	
+		Query queryFindAllComic = em.createQuery(consulta);
+		@SuppressWarnings("unchecked")
+		List<ComicDTO> listaComics = (List<ComicDTO> )queryFindAllComic.getResultList();
+		
+
+		return listaComics;
+		
 	}
+         @Override
+         @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
+    public ComicDTO consultarComic(Long idComic) {
+        ComicDTO  resultado = new ComicDTO();
+      
+        
+        try{
+         Comic comic= this.consultarComicPorId(idComic);
+       resultado = this.convertirComicToComicDTO(comic);
+       resultado.setMensajeEjecucion("se consulto correctamente");
+       resultado.setExitoso(true);
+        }catch(Exception e){
+        resultado.setMensajeEjecucion("error tecnico");
+       resultado.setExitoso(false);
+        }
+      
+       return resultado;
+    }
 	
 	/**
 	 * 
@@ -184,6 +269,13 @@ public class GestionarComicBean implements IGestionarComicLocal {
 		comic.setCantidad(comicDTO.getCantidad());
 		return comic;
 	}
+
+   
+
+   
+
+    
+    
 
    
 

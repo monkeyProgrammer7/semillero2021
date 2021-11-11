@@ -81,6 +81,12 @@
                 <artifactId>hibernate-core</artifactId>
                 <version>5.2.12.Final</version>
         </dependency>
+		<!-- https://mvnrepository.com/artifact/org.json/json -->
+		<dependency>
+			<groupId>org.json</groupId>
+			<artifactId>json</artifactId>
+			<version>20131018</version>
+		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/org.testng/testng -->
 	</dependencies>

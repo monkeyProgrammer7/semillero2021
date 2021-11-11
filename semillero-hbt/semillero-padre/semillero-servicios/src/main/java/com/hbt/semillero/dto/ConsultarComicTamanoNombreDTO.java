@@ -31,11 +31,14 @@ public class ConsultarComicTamanoNombreDTO extends ResultadoDTO{
          * constructor de la clase
          */
         public ConsultarComicTamanoNombreDTO(){
-            //constructor vacio
+            this.nombresIgualLongitud = new ArrayList<>();
+            this.nombresDistintaLongitud = new ArrayList<>();
+            
         }
        
     /**
     * metodo que nos retorna una lista que contiene los numeros con la propiedad nombrada al principio
+     * @return 
      */
   
   
@@ -44,18 +47,21 @@ public class ConsultarComicTamanoNombreDTO extends ResultadoDTO{
     }
     /**
     * metodo que nos sirve para agregar el nombre de un comic que cumpla la propiedad en la lista respectiva
+     * @param nombre
      */
     public void addNombresIgualLongitud(String nombre) {
         this.nombresIgualLongitud.add(nombre);
     }
     /**
     * metodo que nos retorna una lista que contiene los numeros con la propiedad nombrada al principio
+     * @return 
      */
         public List<String> getNombresDistintaLongitud() {
         return this.nombresDistintaLongitud;
     }
     /**
     * metodo que nos sirve para agregar el nombre de un comic que cumpla la propiedad en la lista respectiva
+     * @param nombre
      */
     public void addNombresDitintaLongitud(String nombre) {
         this.nombresDistintaLongitud.add(nombre);

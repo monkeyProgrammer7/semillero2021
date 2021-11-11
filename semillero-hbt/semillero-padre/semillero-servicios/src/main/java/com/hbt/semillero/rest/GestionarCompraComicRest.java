@@ -5,11 +5,12 @@
 package com.hbt.semillero.rest;
 
 import com.hbt.semillero.dto.ComicDTO;
+import com.hbt.semillero.dto.ComprarComicDTO;
+import com.hbt.semillero.dto.ResultadoDTO;
 import com.hbt.semillero.ejb.IGestionarCompraComicLocal;
 import javax.ejb.EJB;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
@@ -25,13 +26,24 @@ public class GestionarCompraComicRest {
      */
     @EJB
     private IGestionarCompraComicLocal gestionarCompraComicLocal;
-    
+        
+    /**
+     * metodo que llama al metodo comprarComic de la interfaz IGestionarCompraComicLocal 
+     * @param comprarComicDTO
+     * @return resultado de la consulta
+     */
       @POST
-        @Path("comprarComic")
+        @Path("/comprarComic")
         @Produces(MediaType.APPLICATION_JSON)
         @Consumes(MediaType.APPLICATION_JSON)
-        public ComicDTO editarComic(ComicDTO comicDTO){
-         
-         return this.gestionarCompraComicLocal.comprarComic(comicDTO);
+        public ResultadoDTO editarComic(ComprarComicDTO comprarComicDTO){
+            ComicDTO comicDTOResult = new ComicDTO();
+         try{
+             return this.gestionarCompraComicLocal.comprarComic(comprarComicDTO);
+         }catch(Exception e){
+             comicDTOResult.setExitoso(false);
+            comicDTOResult.setMensajeEjecucion("Se ha presentado un error tecnico, causa: " + e.getMessage());
+         }
+         return comicDTOResult;
         }
 }

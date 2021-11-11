@@ -156,7 +156,14 @@ export class GestionarComicComponent implements OnInit {
     this.cerrar();
     this.router.navigate(['bienvenida', comic]);
   }
-
+  /**
+   * Metodo que nos permite navegar al componente cde gestionar compra
+   * @param comic 
+   */
+  public irAComponenteGestionarCompra(comic : ComicDTO):void{
+    this.cerrar();
+    this.router.navigate(['bienvenida', comic]);
+  }
   get f() {
     return this.gestionarComicForm.controls;
   }

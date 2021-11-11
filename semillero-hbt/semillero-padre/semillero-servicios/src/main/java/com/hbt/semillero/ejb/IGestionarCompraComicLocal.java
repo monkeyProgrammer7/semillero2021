@@ -4,8 +4,9 @@
  */
 package com.hbt.semillero.ejb;
 
-import com.hbt.semillero.dto.ComicDTO;
+
 import com.hbt.semillero.dto.ComprarComicDTO;
+import com.hbt.semillero.dto.ResultadoDTO;
 import javax.ejb.Local;
 
 /**
@@ -14,5 +15,12 @@ import javax.ejb.Local;
  */
 @Local
 public interface IGestionarCompraComicLocal {
-    public ComicDTO comprarComic(ComprarComicDTO comprarComicDTO);
+     /**
+     * Metodo abstracto que sera implementado en el bean
+     * @param comprarComicDTO DTO que contiene los campo necesarios para itentar o realizar la compra
+     * @return DTO con la informacion de la compra
+     * @throws java.lang.Exception
+     *
+     */
+    public ResultadoDTO comprarComic(ComprarComicDTO comprarComicDTO) throws Exception;
 }
